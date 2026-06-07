@@ -1,0 +1,6 @@
+{
+  "name": "MoviePulse",
+  "description": "A premium cinematic streaming platform for movies and series, optimized for Uganda and African mobile users.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

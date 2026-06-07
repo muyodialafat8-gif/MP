@@ -1,11 +1,19 @@
-<div align="center">
+# MoviePulse Uganda 🇺🇬
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+A production-grade Premium Mobile-First PWA Streaming Platform inspired by Netflix and Pearl Pix, meticulously optimized for low-data bandwidth and fast offline caching on African telecommunication networks (MTN & Airtel).
 
-  <h1>Built with AI Studio</h2>
+## Core Capabilities
 
-  <p>The fastest path from prompt to production with Gemini.</p>
+- **Zero Hardcoding**: All dynamic video releases, billing tiers, and notifications sync in real-time from your secure Firestore database.
+- **African Optimizations**: Features 144p-1080p stream speed toggles, offline downloads caching, and manual mobile money passes with automated WhatsApp checks.
+- **Private Adult Room**: A hidden 18+ movie zone protected behind security codes (`@movie_pulse_media256`) and dynamic exit buttons.
+- **Double-Tap Seek Player**: Complete responsive cinematic control with gesture seeking, volume boosters, and inline playback metrics.
+- **One-Click Seeder**: In addition to standard manual upload forms, clicking "Initialize Uganda Demo Data" in the Admin panel instantly pre-fills authentic Kampala trending titles for demonstration purposes.
 
-  <a href="https://aistudio.google.com/apps">Start building</a>
+## Fast Deployment
 
-</div>
+Run standard build commands to compile client-side assets or deploy directly to Vercel/GitHub pages.
+```bash
+npm run build
+```
+The application loads standalone manifest settings for installation on devices.

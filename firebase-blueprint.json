@@ -1,0 +1,209 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "User profile with basic information, role, and authorization details",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "User Firebase Auth UID" },
+        "email": { "type": "string", "format": "email", "description": "User registered email address" },
+        "phone": { "type": "string", "description": "User registered phone number" },
+        "displayName": { "type": "string", "description": "User visible display name" },
+        "role": { "type": "string", "enum": ["user", "admin"], "description": "User authorization level" },
+        "status": { "type": "string", "enum": ["active", "banned"], "description": "User account status" },
+        "joinedAt": { "type": "string", "format": "date-time", "description": "Timestamp when user signed up" }
+      },
+      "required": ["id", "email", "joinedAt"]
+    },
+    "Movie": {
+      "title": "Movie",
+      "description": "A feature-length film or cinematic content metadata",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Document unique identifier" },
+        "title": { "type": "string", "description": "Title of the movie" },
+        "description": { "type": "string", "description": "Cinematic description" },
+        "posterUrl": { "type": "string", "description": "Portrait poster image path or external URL" },
+        "backdropUrl": { "type": "string", "description": "Landscape backdrop banner image path or external URL" },
+        "videoUrl": { "type": "string", "description": "Path or CDN URL to source video stream" },
+        "trailerUrl": { "type": "string", "description": "Path or URL to trailer video" },
+        "subtitleUrl": { "type": "string", "description": "Subtitle file path or VTT URL" },
+        "rating": { "type": "number", "description": "Average rating value from 0 to 5" },
+        "ratingCount": { "type": "number", "description": "Total number of users who rated this movie" },
+        "views": { "type": "number", "description": "Click/play impressions counter" },
+        "releaseYear": { "type": "number", "description": "Year of release" },
+        "duration": { "type": "string", "description": "Movie length descriptor (e.g. 2h 15m)" },
+        "quality": { "type": "string", "description": "Resolution descriptor (HD, FHD, 4K, 144p)" },
+        "isPremium": { "type": "boolean", "description": "Requires an active paywall/subscription to unlock" },
+        "genres": { "type": "array", "description": "Genres associated with this movie" },
+        "trendingBadge": { "type": "string", "description": "Uganda-focused trending badge label (e.g. '#1 in Uganda', 'Hot Today')" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "videoUrl", "createdAt"]
+    },
+    "Series": {
+      "title": "Series",
+      "description": "A episodic series container containing seasons and episodes",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Document unique identifier" },
+        "title": { "type": "string", "description": "Title of the series" },
+        "description": { "type": "string", "description": "Series description" },
+        "posterUrl": { "type": "string", "description": "Portrait poster image path or external URL" },
+        "backdropUrl": { "type": "string", "description": "Landscape backdrop banner image path or external URL" },
+        "rating": { "type": "number", "description": "Average rating" },
+        "releaseYear": { "type": "number", "description": "Year first aired" },
+        "genres": { "type": "array", "description": "Genres" },
+        "isPremium": { "type": "boolean", "description": "True if series is locked for premium" },
+        "trendingBadge": { "type": "string", "description": "Trending badge" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "createdAt"]
+    },
+    "Episode": {
+      "title": "Episode",
+      "description": "An individual episode of a TV Series",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "seriesId": { "type": "string", "description": "Referenced Series document ID" },
+        "season": { "type": "number", "description": "Season number" },
+        "episodeNumber": { "type": "number", "description": "Episode sequence number" },
+        "title": { "type": "string", "description": "Episode title" },
+        "description": { "type": "string" },
+        "videoUrl": { "type": "string", "description": "Episode video streaming link" },
+        "duration": { "type": "string", "description": "Episode length" },
+        "thumbnailUrl": { "type": "string", "description": "Cover thumbnail image URL" },
+        "views": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["seriesId", "season", "episodeNumber", "title", "videoUrl"]
+    },
+    "Subscription": {
+      "title": "Subscription",
+      "description": "User transaction based subscription status details",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "planName": { "type": "string" },
+        "price": { "type": "number" },
+        "expiresAt": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["active", "expired"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "planName", "price", "expiresAt", "status"]
+    },
+    "WatchHistory": {
+      "title": "Watch History",
+      "description": "Saves state of playback and progress monitoring",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "contentId": { "type": "string" },
+        "contentType": { "type": "string", "enum": ["movie", "episode"] },
+        "progress": { "type": "number" },
+        "duration": { "type": "number" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "contentId", "progress", "updatedAt"]
+    },
+    "Watchlist": {
+      "title": "Watchlist",
+      "description": "User saved records for lists",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "contentId": { "type": "string" },
+        "contentType": { "type": "string", "enum": ["movie", "series"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "contentId", "createdAt"]
+    },
+    "Ads": {
+      "title": "Ad Placement",
+      "description": "Professional ad placements configured dynamically",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "targetUrl": { "type": "string" },
+        "position": { "type": "string", "enum": ["homepage_banner", "movie_page_banner", "pre_roll"] },
+        "isActive": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "position", "isActive"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "System or admin-sent messaging triggers",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "message": { "type": "string" },
+        "userScope": { "type": "string", "description": "User ID targeted, or 'all'" },
+        "isRead": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "message", "userScope", "createdAt"]
+    },
+    "HomepageConfig": {
+      "title": "Homepage Configurations",
+      "description": "Dynamic homepage setup containing ONE hero movie and welcoming banners",
+      "type": "object",
+      "properties": {
+        "welcomeMessage": { "type": "string" },
+        "heroMovieId": { "type": "string" },
+        "heroType": { "type": "string", "enum": ["movie", "series"] },
+        "featuredAdsEnabled": { "type": "boolean" }
+      },
+      "required": ["welcomeMessage"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Registered app profiles matched to auth user ID"
+    },
+    "/movies/{movieId}": {
+      "schema": "Movie",
+      "description": "Catalogue movies database"
+    },
+    "/series/{seriesId}": {
+      "schema": "Series",
+      "description": "TV Series containers"
+    },
+    "/episodes/{episodeId}": {
+      "schema": "Episode",
+      "description": "TV Series active episodes"
+    },
+    "/subscriptions/{subId}": {
+      "schema": "Subscription",
+      "description": "Active paywall items of movie pulse"
+    },
+    "/watchHistory/{historyId}": {
+      "schema": "WatchHistory",
+      "description": "Saves progress checkpoints for resuming videos"
+    },
+    "/watchlists/{watchId}": {
+      "schema": "Watchlist",
+      "description": "Users personalized watching bookmarks"
+    },
+    "/ads/{adId}": {
+      "schema": "Ads",
+      "description": "Paid advertising campaigns details"
+    },
+    "/notifications/{notifId}": {
+      "schema": "Notification",
+      "description": "Broadcaster and individual targets alerts"
+    },
+    "/homepage_config/{configId}": {
+      "schema": "HomepageConfig",
+      "description": "Admin configs representing the dynamic hero placements"
+    }
+  }
+}
